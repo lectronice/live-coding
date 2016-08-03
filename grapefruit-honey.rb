@@ -1,4 +1,4 @@
-# Grapefruit Honey (v.0.1)
+# Grapefruit Honey (v.0.2)
 
 # Procedural dub techno soundtrack for drinking light beer during the summer, by lectronice.
 # Live coded while brewing a grapefruit honey flavored beer, refined in a sunny garden.
@@ -65,25 +65,21 @@ end
 
 live_loop :bass do
   if $v >= 16 and $l <= $d
-    with_fx :compressor,
-      pre_amp: rrand(1.5, 2),
-    threshold: 0.5 do
-      with_fx :slicer, mix: 0.5 do
-        with_fx :echo,
-          phase: choose([0.25, 0.5, 0.75, 1]),
-        mix: choose([0, 0.25, 0.5]) do
-          
-          use_synth :fm
-          if one_in(2)
-            play_pattern_timed [
-            :e2, :f2, :g2, :e2, :f2, :r],[
-            1  , 1  , 2.5, 0.5, 1  , 2]
-          else
-            play_pattern_timed [
-            :e2, :f2, :g2, :e2, :g2, :f2],[
-            1  , 1  , 2.5, 0.5, 1.5, 0.5]
-          end
-          
+    with_fx :slicer,
+      phase: choose([0.25, 0.5, 0.75]),
+    mix: rrand(0.3, 0.5) do
+      with_fx :echo,
+        phase: choose([0.25, 0.5, 0.75, 1]),
+      mix: choose([0, 0.25, 0.5]) do
+        use_synth :fm
+        if one_in(2)
+          play_pattern_timed [
+          :e2, :f2, :g2, :e2, :f2, :r],[
+          1  , 1  , 2.5, 0.5, 1  , 2]
+        else
+          play_pattern_timed [
+          :e2, :f2, :g2, :e2, :g2, :f2],[
+          1  , 1  , 2.5, 0.5, 1.5, 0.5]
         end
       end
     end
@@ -93,7 +89,7 @@ live_loop :bass do
 end
 
 live_loop :drums do
-  if $l <= $d
+  if $v >= 4 and $l <= $d
     with_fx :echo,
       phase: choose([0.25, 0.5]),
     mix: choose([0, 0, 0, 0.25]) do
